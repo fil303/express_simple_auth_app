@@ -1,9 +1,18 @@
 var express = require('express');
-var router = express.Router();
+const { response } = require('../app');
+var Route = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+
+Route.use((request, response, next) => {
+  let session = request.session
+  if(session?.user?.id || false) next();
+  
+  response.redirect("/login")
+})
+
+Route.get('/dashboard', function(req, res, next) {
+  res.render('./user/dashboard');
 });
 
-module.exports = router;
+module.exports = Route;

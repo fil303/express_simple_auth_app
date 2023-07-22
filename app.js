@@ -27,19 +27,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(upload.array()); 
 app.use(express.static(path.join(__dirname, 'public')));
-console.log(process.env.SESSION_SECRET)
 app.use(
   session({
+    key: "user_id",
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     //session expires after 3 hours
-    cookie: { maxAge: 60 * 1000 * 60 * 3 },
+    cookie: { maxAge: 1000 * 60 * 60 * 1 },
   })
 );
 
 app.use('/', auth);
-app.use('/', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

@@ -25,15 +25,15 @@ module.exports.storeUser = async data => {
 }
 
 module.exports.userLogin = async data => {
-    var email = await prisma.user.findUnique({
+    var user = await prisma.user.findUnique({
         where: {
           email: data.email,
         },
     })
-    console.log(email, "first find email")
-    if(email?.id || false){
-      var passwordCheckResult = await bcrypt.compare(data.password, email.password)
-      if(passwordCheckResult) return true
+    console.log(user, "first find email")
+    if(user?.id || false){
+      var passwordCheckResult = await bcrypt.compare(data.password, user.password)
+      if(passwordCheckResult) return user
 
       console.log("password not matched")
       return false
