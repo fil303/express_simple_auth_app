@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(upload.array()); 
 app.use(express.static(path.join(__dirname, 'public')));
-
+console.log(process.env.SESSION_SECRET)
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
