@@ -5,9 +5,9 @@ var logger = require('morgan');
 var session = require("express-session");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer');
+// var multer = require('multer');
 var dotenv = require('dotenv').config() 
-var upload = multer();
+// var upload = multer();
 
 var auth = require('./routes/auth');
 var index = require('./routes/index');
@@ -25,7 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(upload.single('photo')); 
+// app.use(upload.array(['photo'])); 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   session({

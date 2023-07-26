@@ -2,6 +2,7 @@ var {
     storeUser,
     userLogin,
 } = require('../service/UserService')
+
 var multer = require('multer');
 
 
@@ -10,18 +11,7 @@ module.exports.getRegisterPage = (request, response) => {
 }
 
 module.exports.proccessRegistation = (request, response) => {
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-          cb(null, '/public/users')
-        },
-        filename: function (req, file, cb) {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-          cb(null, file.fieldname + '-' + uniqueSuffix)
-        }
-    })
-      
-    const upload = multer({ storage: storage })
-    console.log(upload.single("photo"))
+    console.log(request.file)
     if(request.body.password != request.body.confirm_password)
        return response.send("password not match") 
     if(storeUser(request.body))
